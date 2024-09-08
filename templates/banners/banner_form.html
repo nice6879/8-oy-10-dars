@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create / Update Banner</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style3.css' %}">
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Banner</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if form.instance.pk %}Update{% else %}Save{% endif %}</button>
+    </form>
+    <a href="{% url 'banner_list' %}">Back to Banner List</a>
+</body>
+</html>
+

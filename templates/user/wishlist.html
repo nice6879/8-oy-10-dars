@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="assets/css/style1.css"> <!-- Link to the external CSS file -->
+</head>
+<body>
+    <h1>My Wishlist</h1>
+    <div class="wishlist-container">
+        {% for wish in wishlist %}
+        <div class="wishlist-item">
+            <div class="product-details">
+                <div class="product-title">{{ wish.product.name }}</div>
+                <div class="product-price">${{ wish.product.price }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

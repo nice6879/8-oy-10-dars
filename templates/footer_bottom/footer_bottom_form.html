@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Update{% else %}Create{% endif %} Footer Bottom</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style6.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{% if form.instance.pk %}Update{% else %}Create{% endif %} Footer Bottom</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'footer_bottom_list' %}">Back to List</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    </main>
+</body>
+</html>
+

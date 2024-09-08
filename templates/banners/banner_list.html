@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner List</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style2.css' %}">
+</head>
+<body>
+    <h1>Banner List</h1>
+    <a href="{% url 'banner_create' %}">Create New Banner</a>
+    <ul>
+        {% for banner in banners %}
+            <li>
+                <img src="{{ banner.img.url }}" alt="{{ banner.title }}" style="max-width: 200px;">
+                <strong>{{ banner.title }}</strong> 
+                {% if banner.sub_title %}
+                    <em>{{ banner.sub_title }}</em>
+                {% endif %}
+                <a href="{% url 'banner_update' banner.pk %}">Edit</a>
+                <a href="{% url 'banner_delete' banner.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

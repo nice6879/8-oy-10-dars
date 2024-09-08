@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Bottom Detail</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style9.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Footer Bottom Details</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'footer_bottom_list' %}">Back to List</a></li>
+                <li><a href="{% url 'footer_bottom_update' item.pk %}">Edit</a></li>
+                <li><a href="{% url 'footer_bottom_delete' item.pk %}">Delete</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>{{ item.title }}</h2>
+        <dl>
+            <dt>Call Center:</dt>
+            <dd>{{ item.call_center }}</dd>
+            <dt>Location:</dt>
+            <dd>{{ item.location }}</dd>
+            <dt>Facebook Link:</dt>
+            <dd><a href="{{ item.facebook_link }}" target="_blank">{{ item.facebook_link }}</a></dd>
+            <dt>Twitter Link:</dt>
+            <dd><a href="{{ item.twitter_link }}" target="_blank">{{ item.twitter_link }}</a></dd>
+            <dt>LinkedIn Link:</dt>
+            <dd><a href="{{ item.linkedin_link }}" target="_blank">{{ item.linkedin_link }}</a></dd>
+        </dl>
+        <a href="{% url 'footer_bottom_list' %}" class="button">Back to List</a>
+    </main>
+</body>
+</html>
+

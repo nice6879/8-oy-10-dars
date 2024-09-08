@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Bottom List</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style5.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Footer Bottom List</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'footer_bottom_create' %}" class="dark-link">Add New Footer Bottom</a></li>
+                <li><a href="{% url 'footer_bottom_img_create' %}" class="dark-link">Upload Image</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td class="actions">
+                    <a href="{% url 'footer_bottom_detail' item.pk %}"class="dark-link">View</a> |
+                    <a href="{% url 'footer_bottom_update' item.pk %}"class="dark-link">Edit</a> |
+                    <a href="{% url 'footer_bottom_delete' item.pk %}"class="dark-link">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+
+</html>
+

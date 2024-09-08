@@ -1,0 +1,434 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+        .heart-btn.active i {
+            color: red; /* Change the color to red when active */
+        }
+    </style>
+
+        <!--==============================
+    Sidemenu
+    ============================== -->
+    <div class="sidemenu-wrapper d-none d-lg-block  ">
+        <div class="sidemenu-content">
+            <button class="closeButton border-theme text-theme bg-theme-hover sideMenuCls"><i class="far fa-times"></i></button>
+            <div class="widget widget_shopping_cart">
+                <h3 class="widget_title">Shopping cart</h3>
+                <div class="widget_shopping_cart_content">
+                    <ul class="cart_list ">
+                        {% for sm in side_menu %}
+                            <li class="mini_cart_item">
+                                <a href=""><img src="{{ sm.img.url }}" alt="Cart Image">{{ sm.name }}</a>
+                                <span class="quantity">{{ sm.quantity }} ×
+                                    <span class="amount">
+                                        <span>$</span>{{ sm.price }}
+                                    </span>
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p class="total">
+                        <strong>Subtotal:</strong>
+                        <span class="amount">
+                            <span>$</span>{{ total_price }}
+                        </span>
+                    </p>
+                    <p class="buttons">
+                        <a href="mycart" class="vs-btn">View cart</a>
+                        <a href="" class="vs-btn">Checkout</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--==============================
+    Popup Search Box
+    ============================== -->
+    <div class="popup-search-box d-none d-lg-block  ">
+        <button class="searchClose border-theme text-theme"><i class="fal fa-times"></i></button>
+        <form action="#">
+            <input type="text" class="border-theme" placeholder="What are you looking for">
+            <button type="submit"><i class="fal fa-search"></i></button>
+        </form>
+    </div>
+
+
+
+    <!--==============================
+        Header Area
+    ==============================-->
+
+    <style>
+        .menu-style2 > ul > li > a {
+            padding: 0;
+        }
+
+        .menu-area {
+            padding: 20px;
+        }
+    </style>
+    <header class="header-wrapper header-layout5">
+        
+        <div class="menu-area" >
+            <div class="container">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col col-lg-auto">
+                        <div class="header-logo">
+                            <a href="{% url 'index' %}"><img src="{% static 'assets/img/logo.svg' %}" alt="Foodano"></a>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <nav class="main-menu mobile-menu-active menu-style2">
+                            <ul>
+                                
+                                <li class="menu-item-has-children">
+                                    <a href="">Shop</a>
+                                    <ul class="sub-menu">
+
+                                        <li><a href="{% url 'mycart'  %}">MYCart</a></li>
+                                        <li><a href="{% url 'login' %}">Login & Register</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="blog.html">Blog</a>
+                                    <ul class="sub-menu">
+
+                                        <li><a href="{% url 'wishlist'  %}">Wishlist</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="">Contact Us</a>
+                                </li>
+
+                                <li class="mega-menu-wrap menu-item-has-children">
+                                    <a href="#">All</a>
+                                    <ul class="mega-menu">
+
+                                        <li><a href="#">Shop</a>
+                                            <ul>
+                                                <li><a href="{% url 'login' %}">Login & Register</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-auto d-none d-sm-block">
+                        <div class="header-buttons">
+                            <button type="button" class="searchBoxTggler"><i class="far fa-search"></i></button>
+                            <a href="{% url 'wishlist' %}"><i class="fal fa-heart"></i></a>
+                            <button class="sideMenuToggler has-badge" type="button"><i class="fal fa-shopping-cart"></i><span class="badge">{{ total_items }}</span></button>
+                            {% if request.user.is_authenticated%}
+                            <a href="{% url 'log_out' %}">{{request.user.username}}</a>
+                            {% endif %}
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="col-auto d-block d-lg-none">
+                        <button type="button" class="vs-menu-toggle "><i class="far fa-bars"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--==============================
+      Hero Area
+    ==============================-->
+    <div class="  ">
+        
+        <div class="vs-hero-carousel hero-layout6" data-globalbgimage="{% static 'assets/img/food_wallpaper.jpg' %}" data-height="810" data-container="1900" data-slidertype="responsive">
+
+            {% for banner in  banners %}
+            <div class="ls-slide" data-ls="duration:12000; transition2d:5; kenburnsscale:1.2;">
+                <p style="top:405px; left:375px; font-weight:700; background-size:inherit; background-position:inherit; font-size:65px; color:#fcd55c; font-family:'Advent Pro', sans-serif;" class="ls-l ls-hide-tablet ls-hide-phone" data-ls="offsetxin:-200; durationin:1500; easingin:easeOutQuint;">Organic Plants and</p>
+                <div style="top:611px; left:375px; background-size:inherit; background-position:inherit;" class="ls-l ls-hide-tablet ls-hide-phone" data-ls="offsetyin:100; durationin:1500; delayin:800; easingin:easeOutQuint; offsetyout:200; durationout:1500; easingout:easeOutQuint;">
+
+                    <a href="shop.html" class="vs-btn style5 ls-btn">Start Shopping<i class="far fa-angle-right"></i></a>
+                </div>
+
+                <img width="658" height="543" src="{{ banner.img.url }}" class="ls-l ls-hide-desktop" alt="image" style="top: 180px; left:916px; background-size:inherit; background-position:inherit; width:800px; height:600px;">
+
+                
+                <a class="ls-l ls-hide-tablet ls-hide-phone" href="#1" target="_self" data-ls="hover:true; hoverbgcolor:#76a713; hovercolor:#ffffff; static:forever;">
+                    <p style='top:420px; left:1760px; text-align:center; font-weight:700; background-size:inherit; background-position:inherit; font-size:16px; font-family:"Lato", sans-serif; line-height:40px; width:40px; height:40px; border-radius:100%; color:#000000; background-color:#ffffff;' class="">1</p>
+                </a>
+                <a class="ls-l ls-hide-tablet ls-hide-phone" href="#2" target="_self" data-ls="hover:true; hoverbgcolor:#76a713; hovercolor:#ffffff; static:forever;">
+                    <p style='top:470px; left:1760px; text-align:center; font-weight:700; background-size:inherit; background-position:inherit; font-size:16px; font-family:"Lato", sans-serif; line-height:40px; width:40px; height:40px; border-radius:100%; color:#000000; background-color:#ffffff;' class="">2</p>
+                </a>
+                <a class="ls-l ls-hide-tablet ls-hide-phone" href="#3" target="_self" data-ls="hover:true; hoverbgcolor:#76a713; hovercolor:#ffffff; static:forever;">
+                    <p style='top:520px; left:1760px; text-align:center; font-weight:700; background-size:inherit; background-position:inherit; font-size:16px; font-family:"Lato", sans-serif; line-height:40px; width:40px; height:40px; border-radius:100%; color:#000000; background-color:#ffffff;' class="">3</p>
+                </a>
+                <a class="ls-l ls-hide-tablet ls-hide-phone" href="#4" target="_self" data-ls="hover:true; hoverbgcolor:#76a713; hovercolor:#ffffff; static:forever;">
+                    <p style='top:570px; left:1760px; text-align:center; font-weight:700; background-size:inherit; background-position:inherit; font-size:16px; font-family:"Lato", sans-serif; line-height:40px; width:40px; height:40px; border-radius:100%; color:#000000; background-color:#ffffff;' class="">4</p>
+                </a>
+                <a class="ls-l ls-hide-tablet ls-hide-phone" href="#5" target="_self" data-ls="hover:true; hoverbgcolor:#76a713; hovercolor:#ffffff; static:forever;">
+                    <p style='top:620px; left:1760px; text-align:center; font-weight:700; background-size:inherit; background-position:inherit; font-size:16px; font-family:"Lato", sans-serif; line-height:40px; width:40px; height:40px; border-radius:100%; color:#000000; background-color:#ffffff;' class="">5</p>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!--==============================
+    Categories Area
+    ==============================-->
+    <section class="space-top" style="padding-top: 30px;">
+        <div class="container">
+            <span class="sub-title4" style="    font-size: 60px; font-weight: 700; line-height: 1.1;">Categories</span>
+            <div class="row vs-carousel" data-slide-show="3" id="catboxSlide4645">
+                {% for category in categories %}
+                <div class="col-xl-4">
+                    <div class="cat-box">
+                        <div class="cat-box__img">
+                            <img src="{{category.img.url}}" alt="Category image" style="height: 300px; width: 400px;">
+                        </div>
+                        <h3 class="cat-box__title"><a href="shop.html">{{category.name}}</a></h3>
+                        <p class="cat-box__text">{{category.title}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row text-center justify-content-around align-items-center">
+                <div class="col-auto d-none d-sm-block">
+                    <button class="slick-arrow" data-slick-prev="#catboxSlide4645" type="button"><i class="fas fa-angle-left"></i></button>
+                </div>
+                <div class="col-auto">
+                    <a href="shop.html" class="vs-btn style3">Start Shopping<i class="fas fa-angle-right"></i></a>
+                </div>
+                <div class="col-auto d-none d-sm-block">
+                    <button class="slick-arrow" data-slick-next="#catboxSlide4645" type="button"><i class="fas fa-angle-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="sec-bg3 vs-shop-wrapper" style="padding-top: 30px;" data-bg-src="{% static 'assets/img/shape/bg-00778.png' %}">
+        <div class="section-title text-center" style="margin-bottom: 30px;">
+            <div class="sec-icon"><img src="{% static 'assets/img/icons/sec-icon-2.png' %}" alt="icon"></div>
+            <span class="sub-title4">Latest Arrivals</span>
+            <h2 class="sec-title3">Feature Products</h2>
+        </div>
+        <div class="container position-relative">
+            <div class="filter-menu2 vs-slideTab" data-asnavfor="#shopSlide8440">
+                <button class="tab-btn active" data-bs-toggle="tooltip" data-bs-placement="left" title="Best Seller">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-2.png' %}" alt="image" class="bg-1">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-1.png' %}" alt="image" class="bg-2">
+                    <i class="flaticon-salad"></i> </button>
+                <button class="tab-btn " data-bs-toggle="tooltip" data-bs-placement="left" title="Popular">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-2.png' %}" alt="image" class="bg-1">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-1.png' %}" alt="image" class="bg-2">
+                    <i class="flaticon-salvsadbox-1"></i> </button>
+                <button class="tab-btn " data-bs-toggle="tooltip" data-bs-placement="left" title="Trend">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-2.png' %}" alt="image" class="bg-1">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-1.png' %}" alt="image" class="bg-2">
+                    <i class="flaticon-vegetables"></i> </button>
+                <button class="tab-btn " data-bs-toggle="tooltip" data-bs-placement="left" title="Season">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-2.png' %}" alt="image" class="bg-1">
+                    <img src="{% static 'assets/img/shape/filter-icon-bg-1-1.png' %}" alt="image" class="bg-2">
+                    <i class="flaticon-healthy-food"></i> </button>
+            </div>
+            <div class="vs-carousel" data-slide-show="1" data-lg-slide-show="1" data-md-slide-show="1" data-sm-slide-show="1" data-fade="true" id="shopSlide8440">
+
+                <div id="BestSeller">
+                    <div class="row gx-2px justify-content-center">
+                        {% for feat in feature %}
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                <div class="vs-product-box3">
+                                    <div class="product-img">
+                                        <a href="shop-details.html">
+                                            <img src="{{ feat.img.url }}" alt="Product Image" class="w-100" style="max-height: 200px; width: auto; height: auto; display: block; margin-left: auto; margin-right: auto;">
+                                        </a>
+                                    </div>
+                                    <div class="actions-btn">
+                                        <a href="{{ feat.img.url }}" class="icon-btn popup-image"><i class="far fa-search"></i></a>
+                                        <a href="{% url 'wishlist' %}" class="icon-btn heart-btn" onclick="toggleHeart(this); return false;">
+                                            <i class="fal fa-heart"></i>
+                                        </a>
+                                        <a href="{% url 'mycart' %}" class="vs-btn style4 cart-btn"><i class="fal fa-cart-plus"></i>Add To Cart</a>
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="product-rating-box">
+                                            {{ feat.rating }}
+                                            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
+                                            </div>
+                                        </div>
+                                        <h4 class="product-title">
+                                            <a href="shop-details.html">{{ feat.name }}</a>
+                                        </h4>
+                                        <span class="price"><strong>${{ feat.price }}</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-btn">
+                <a href="shop.html" class="vs-btn style3">All Product<i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!--==============================
+    Popular Package Box
+    ==============================-->
+    <section class="position-relative space-top space-md-bottom" style="padding-top: 40px;">
+        <div class="sec-bg4" data-bg-src="assets/img/shape/bg-00779.png"></div>
+        <div class="container">
+            <div class="section-title text-center">
+                <div class="sec-icon"><img src="{% static 'assets/img/icons/sec-icon-2.png' %}" alt="icon"></div>
+                <span class="sub-title4">Box contents change weekly</span>
+                <h2 class="sec-title3">Our Most Popular Boxes</h2>
+            </div>
+            <div class="row vs-carousel" data-slide-show="3" data-lg-slide-show="3" data-sm-slide-show="1">
+                {% for product in products%}
+                <div class="col-xl-4">
+                    <div class="package-style1">
+                        <div class="package-img"><img src="{{product.img.url }}" alt="Package"></div>
+                        <div class="package-quantity" data-bg-src="{% static 'assets/img/shape/pack-bg.png' %}">
+                            <div class="number">{{product.product.name}}</div>
+                        </div>
+                        <div class="package-price">${{product.product.price}}</div>
+                        <h3 class="package-title">{{product.product.description}}</h3>
+                        <div class="package-list">
+                            <ul>
+                                <li><i class="far fa-check"></i>{{product.product.quantity}} pcs left</li>
+                            </ul>
+                        </div>
+                        <form action="{% url 'addToCart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="number" placeholder="quantity" name="quantity">
+                            <button type="submit">Add To Carto</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <section class="  space" data-bg-src="{% static 'assets/img/bg/newsletter-bg-1-2.jpg' %}">
+        <div class="container">
+            <div class="newsletter-style2" data-bg-src="{% static 'assets/img/shape/newsletter-bg-1-1.png' %}">
+                <div class="shape-1 d-none d-md-block"><img src="{% static 'assets/img/shape/newsletter-s-008.png' %}" alt="shape"></div>
+                <span class="sub-title4">Subscribe and Get new Tips and Updates</span>
+                <h2 class="sec-title3">Subscribe & Get 10% Off</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Enter Your Email Address....">
+                    <button class="vs-btn style4" type="submit"><i class="fas fa-envelope"></i>Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--==============================
+        Blog Area
+    ==============================-->
+    <section class="vs-blog-wrapper space-top space-md-bottom" style="padding: 40px;">
+        <div class="container">
+            <div class="section-title text-center">
+                <div class="sec-icon"><img src="{% static 'assets/img/icons/sec-icon-2.png' %}" alt="icon"></div>
+                <span class="sub-title4">Tips & News</span>
+                <h2 class="sec-title3">Recent Articles</h2>
+            </div>
+            {% for r_a in rec_articles %}
+                <div class="row vs-carousel" data-slide-show="3" data-sm-slide-show="1">
+                    <div class="col-xl-4">
+                        <div class="vs-blog blog-style1">
+                            <div class="blog-img image-scale-hover">
+                                <a href="blog-details.html"><img src="{{ r_a.img.url }}" alt="Blog Image" class="w-100"></a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="tags">
+                                    <a href="blog-details.html">{{ r_a.img.url }}</a>
+                                </div>
+                                <a href="blog-details.html" class="blog-date">{{ r_a.status }}</a>
+                                <h3 class="blog-title"><a href="blog-details.html">{{ r_a.title }}</a></h3>
+                                <p class="blog-text">{{ r_a.body }}</p>
+                            </div>
+                            <div class="meta-box">
+                                <a href="blog-details.html">Posted {{ r_a.posted_by }}</a>
+                                <a href="blog-details.html">{{ r_a.comments }} Comments</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            {% endfor %}
+        </div>
+    </section>
+    <!--==============================
+        Blog Area
+    ==============================-->
+
+    <!--==============================
+    Banner Area
+    ==============================-->
+
+    <!--==============================
+			Footer Area
+	==============================-->
+    <footer class="footer-wrapper footer-layout2" data-bg-src="{% static 'assets/img/shape/footer-5-1.jpg' %}" style="padding-top: 10px;">
+        <div class="container">
+            <div class="widget-area" style="padding-top: 30px; padding-bottom: 30px;">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="widget  footer-widget">
+                            <div class="footer-info-widget">
+                                <div class="footer-info-logo">
+                                    <img src="{% static 'assets/img/logo-white.svg' %}" alt="Foodano">
+                                </div>
+                                <div class="footer-info">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <a href="tel:+387643932728">+387643932728</a>
+                                </div>
+                                <div class="footer-info">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Harbour House, 60 Purewell, Christchurch, England
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="widget footer-widget">
+                            <h3 class="widget_title">Instagram Photos</h3>
+                            <div class="sidebar-gallery">
+
+                                <div class="gallery-thumb">
+                                    <a class="popup-image" href="{% static '/imgs/110x100r.webp' %}"><img src="{% static '/imgs/110x100w.jpeg' %}" alt="Gallery Image" class="w-100"></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area" data-bg-src="{% static 'assets/img/shape/footer-5-2.png' %}">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto d-none d-lg-block">
+                        <div class="copyright-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i>Facebook</a>
+                            <a href="#"><i class="fab fa-twitter"></i>Twitter</a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i>Linked In</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function toggleHeart(element) {
+                element.classList.toggle('active');
+            }
+        </script>
+    </footer>
+{% endblock %}
